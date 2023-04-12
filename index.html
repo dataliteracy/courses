@@ -30,7 +30,7 @@
 	<script>
 		$(document).ready(function() {
 			// Call Google Sheets API to retrieve data
-			$.getJSON('https://spreadsheets.google.com/feeds/list/1_pI2vyr7JKaiPPcMR7h51PeQPHzQQdjL3U12D7g5LjM/SHEET_INDEX/public/values?alt=json', function(data) {
+			$.getJSON('https://spreadsheets.google.com/feeds/list/1_pI2vyr7JKaiPPcMR7h51PeQPHzQQdjL3U12D7g5LjM/1/public/values?alt=json', function(data) {
 				var items = data.feed.entry;
 
 				// Loop through data and add to table
