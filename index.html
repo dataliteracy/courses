@@ -1,32 +1,54 @@
 <!DOCTYPE html>
 <html>
-  <body>
-    <p id="food"></p>
+<head>
+	<title>My Google Sheets Table</title>
+	<!-- Include Bootstrap CSS -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+	<!-- Include DataTables CSS -->
+	<link rel="stylesheet" href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.min.css">
+</head>
+<body>
+	<div class="container">
+		<h1>Courses to build Data Skills</h1>
+		<table id="myTable" class="table table-striped">
+			<thead>
+				<tr>
+					<th>Column 1</th>
+					<th>Column 2</th>
+					<th>Column 3</th>
+				</tr>
+			</thead>
+			<tbody>
+			</tbody>
+		</table>
+	</div>
 
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.1.0/papaparse.min.js"></script>
-    <script type="text/javascript">
-      var public_spreadsheet_url = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRclVogOpEZY7g-v4ZinGGLO6Qt2_Dpp7pqoOQDFtiQFcwZrfTanHnJt7FwgDmWXzJlsFowIXsqS_cp/pubhtml
-      function init() {
-        Papa.parse(public_spreadsheet_url, {
-          download: true,
-          header: true,
-          complete: showInfo
-        })
-      }
+	<!-- Include jQuery and DataTables JS -->
+	<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+	<script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
 
-      window.addEventListener('DOMContentLoaded', init)
+	<script>
+		$(document).ready(function() {
+			// Call Google Sheets API to retrieve data
+			$.getJSON('https://spreadsheets.google.com/feeds/list/1_pI2vyr7JKaiPPcMR7h51PeQPHzQQdjL3U12D7g5LjM/SHEET_INDEX/public/values?alt=json', function(data) {
+				var items = data.feed.entry;
 
-      function showInfo(results) {
-        var data = results.data
+				// Loop through data and add to table
+				for (var i = 0; i < items.length; i++) {
+					var row = $('<tr>');
+					row.append($('<td>').text(items[i]['gsx$column1']['$t']));
+					row.append($('<td>').text(items[i]['gsx$column2']['$t']));
+					row.append($('<td>').text(items[i]['gsx$column3']['$t']));
+					$('#myTable tbody').append(row);
+				}
 
-        // data comes through as a simple array since simpleSheet is turned on
-        alert("Successfully processed " + data.length + " rows!")
-        document.getElementById("food").innerHTML = "<strong>Foods:</strong> " + [ data[0].Name, data[1].Name, data[2].Name ].join(", ");
-        console.log(data);
-      }
-
-      document.write("The published spreadsheet is located at <a target='_new' href='" + public_spreadsheet_url + "'>" + public_spreadsheet_url + "</a>");        
-    </script>
-    <p><strong>This example is only going to work if it's on the internet or on a local server!</strong> To run a local server, run "terminal" or "command prompt" and run the command <code>python -m http.server</code> or <code>python -m SimpleHTTPServer</code> (whichever one works, really, and you might even need to <a href="http://littlecolumns.com/tools/python-wrangler/">install Python</a>). Then visit <a href="http://localhost:8000/">http://localhost:8000</a> and you'll be all set.</p>
-  </body>
+				// Initialize DataTables with search functionality
+				$('#myTable').DataTable({
+					searching: true,
+					paging: false
+				});
+			});
+		});
+	</script>
+</body>
 </html>
