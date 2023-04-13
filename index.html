@@ -11,13 +11,13 @@
     <table id="myTable" class="table table-striped table-bordered" style="width:100%">
       <thead>
         <tr>
-    <th>Course</th>
-					<th>Module</th>
-					<th>Time (in hrs)</th>
-					<th>Topic</th>
-					<th>Description</th>
-					<th>Language</th>
-					<th>Delivery format</th>
+          <th>Course</th>
+          <th>Module</th>
+          <th>Time (in hrs)</th>
+          <th>Topic</th>
+          <th>Description</th>
+          <th>Language</th>
+          <th>Delivery format</th>
         </tr>
       </thead>
       <tbody>
@@ -31,12 +31,12 @@
       $('#myTable').DataTable({
         "ajax": "data.csv",
         "columns": [
-          { "data": "Courses" },
-          { "data": "Module 1" },
-          { "data": "Time (in hrs)" }
-          { "data": "Topic" }
-	  { "data": "Description" }
-          { "data": "Lanugage" }
+          { "data": "Course" },
+          { "data": "Module" },
+          { "data": "Time (in hrs)" },
+          { "data": "Topic" },
+          { "data": "Description" },
+          { "data": "Language" },
           { "data": "Delivery format" }
         ],
         "order": [[ 0, "asc" ]],
