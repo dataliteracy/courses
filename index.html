@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>My Google Sheets Table</title>
+	<title>Data Literacy Courses - Running List</title>
 	<!-- Include Bootstrap CSS -->
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 	<!-- Include DataTables CSS -->
@@ -9,13 +9,17 @@
 </head>
 <body>
 	<div class="container">
-		<h1>Courses to build Data Skills</h1>
+		<h1>Data Literacy Courses - Running List</h1>
 		<table id="myTable" class="table table-striped">
 			<thead>
 				<tr>
-					<th>Column 1</th>
-					<th>Column 2</th>
-					<th>Column 3</th>
+					<th>Course</th>
+					<th>Module</th>
+					<th>Time (in hrs)</th>
+					<th>Topic</th>
+					<th>Description</th>
+					<th>Language</th>
+					<th>Delivery format</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -30,7 +34,7 @@
 	<script>
 		$(document).ready(function() {
 			// Call Google Sheets API to retrieve data
-			$.getJSON('https://spreadsheets.google.com/feeds/list/1_pI2vyr7JKaiPPcMR7h51PeQPHzQQdjL3U12D7g5LjM/1/public/values?alt=json', function(data) {
+			$.getJSON('https://docs.google.com/spreadsheets/d/e/2PACX-1vRclVogOpEZY7g-v4ZinGGLO6Qt2_Dpp7pqoOQDFtiQFcwZrfTanHnJt7FwgDmWXzJlsFowIXsqS_cp/pub?output=csv?alt=json', function(data) {
 				var items = data.feed.entry;
 
 				// Loop through data and add to table
