@@ -1,58 +1,44 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Data Literacy Courses - Running List</title>
-	<!-- Include Bootstrap CSS -->
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-	<!-- Include DataTables CSS -->
-	<link rel="stylesheet" href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.min.css">
+  <meta charset="UTF-8">
+  <title>Excel to DataTables</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
 </head>
 <body>
-	<div class="container">
-		<h1>Data Literacy Courses - Running List</h1>
-		<table id="myTable" class="table table-striped">
-			<thead>
-				<tr>
-					<th>Course</th>
-					<th>Module</th>
-					<th>Time (in hrs)</th>
-					<th>Topic</th>
-					<th>Description</th>
-					<th>Language</th>
-					<th>Delivery format</th>
-				</tr>
-			</thead>
-			<tbody>
-			</tbody>
-		</table>
-	</div>
-
-	<!-- Include jQuery and DataTables JS -->
-	<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-	<script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
-
-	<script>
-		$(document).ready(function() {
-			// Call Google Sheets API to retrieve data
-			$.getJSON('https://docs.google.com/spreadsheets/d/e/2PACX-1vRclVogOpEZY7g-v4ZinGGLO6Qt2_Dpp7pqoOQDFtiQFcwZrfTanHnJt7FwgDmWXzJlsFowIXsqS_cp/pub?output=csv?alt=json', function(data) {
-				var items = data.feed.entry;
-
-				// Loop through data and add to table
-				for (var i = 0; i < items.length; i++) {
-					var row = $('<tr>');
-					row.append($('<td>').text(items[i]['gsx$column1']['$t']));
-					row.append($('<td>').text(items[i]['gsx$column2']['$t']));
-					row.append($('<td>').text(items[i]['gsx$column3']['$t']));
-					$('#myTable tbody').append(row);
-				}
-
-				// Initialize DataTables with search functionality
-				$('#myTable').DataTable({
-					searching: true,
-					paging: false
-				});
-			});
-		});
-	</script>
+  <div class="container">
+    <table id="myTable" class="table table-striped table-bordered" style="width:100%">
+      <thead>
+        <tr>
+          <th>Column 1</th>
+          <th>Column 2</th>
+          <th>Column 3</th>
+        </tr>
+      </thead>
+      <tbody>
+      </tbody>
+    </table>
+  </div>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+  <script>
+    $(document).ready(function() {
+      $('#myTable').DataTable({
+        "ajax": "data.csv",
+        "columns": [
+          { "data": "Courses" },
+          { "data": "Module 1" },
+          { "data": "Time (in hrs)" }
+          { "data": "Topic" }
+	  { "data": "Description" }
+          { "data": "Lanugage" }
+          { "data": "Delivery format" }
+        ],
+        "order": [[ 0, "asc" ]],
+        "pagingType": "full_numbers"
+      });
+    });
+  </script>
 </body>
 </html>
